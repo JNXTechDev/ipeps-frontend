@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Banner Section */
+.welcome-area {
+  background-size: cover;
+  background-position: right top;
+}
+
+/* Footer Section */
+.bg-footer {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Text Styling */
+.text-primary {
+  color: #3b82f6; /* Example primary color (blue) */
+}
+
+.text-lightText {
+  color: #6b7280; /* Example light text color (gray) */
+}
+
+/* Button Styling */
+.tw-bg-blue-500 {
+  background-color: #3b82f6; /* Example blue color */
+}
+
+.tw-bg-green-500 {
+  background-color: #10b981; /* Example green color */
+}
+
+.tw-bg-blue-500:hover {
+  background-color: #2563eb; /* Darker blue on hover */
+}
+
+.tw-bg-green-500:hover {
+  background-color: #059669; /* Darker green on hover */
+}
+
+/* Add this to your CSS file (e.g., index.css) */
+.bg-banner {
+  background-image: url('./containers/Home/images/banner-bg.png');
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+.bg-footer {
+  background-image: url('./containers/Home/images/footer-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
