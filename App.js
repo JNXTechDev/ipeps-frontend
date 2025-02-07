@@ -25,8 +25,8 @@ import EmployerApplicationForm from './containers/UserApplicationForm/EmployerAp
 //Dashboard Screens
 import StudentDashboardScreen from './containers/Dashboards/StudentDashboardScreen/StudentDashboardScreen';
 import JobSeekerDashboardScreen from './containers/Dashboards/JobSeekersDashboardScreen/JobseekersDashboardScreen';
-
-
+import EmployerDashboardScreen from './containers/Dashboards/EmployersDashboardScreen/EmployerDashboardScreen';  
+import Settings from './containers/Dashboards/EmployersDashboardScreen/components/sidebar-menu-items/Settings/Settings';
 
 /*
 import Logout from './containers/Logout/Logout';
@@ -185,10 +185,17 @@ const App = () => {
               />
 
               
-              {/* Employer Dashboard Route */}
+              {/* Employers Dashboard Route */}
               <Route 
                 path='/dashboard/employer/*'    
+                element={<EmployerDashboardScreen />}
   
+              />
+
+              {/* Add Settings route */}
+              <Route 
+                path='/dashboard/employer/settings'    
+                element={<Settings />}
               />
 
               {/* Catch-all Route */}
