@@ -23,6 +23,8 @@ import { styled } from "@mui/material/styles";
 // Custom Components
 import PersonalInfo from "./Pages/employer/PersonalInfo";
 
+//import SideBar from './SideBar';
+
 const EmployerApplicationForm = (props) => {
   const [selectedTab, setSelectedTab] = useState(1);
   const [pageData, setPageData] = useState({});
@@ -95,9 +97,9 @@ const EmployerApplicationForm = (props) => {
     })
   );
 
-  const content = [
-    { label: "Employer Information", step: "Step 1" },
-  ];
+const content = [
+  { label: "Information Details", stepLabel: "Instructions: Please fill in the application form.", step: "Step 1" },
+];
 
   const onRefresh = () => {
     props.onGetAuthStorage();
@@ -119,7 +121,6 @@ const EmployerApplicationForm = (props) => {
         />
       );
       break;
-   
     default:
       selectedTabContent = null;
   }
@@ -178,7 +179,7 @@ const EmployerApplicationForm = (props) => {
   };
 
   const onClickNextPage = () => {
-    if (selectedTab < 9) {
+    if (selectedTab < 1) {
       setSelectedTab(selectedTab + 1);
       onRefresh();
     }
@@ -208,23 +209,30 @@ const EmployerApplicationForm = (props) => {
   }
 
   return (
-    
     <div className="flex justify-center gap-3 max-w-8xl m-auto my-5">
       {/* Stepper container */}
+
       {/* Main content area */}
       <Container>
-      <h1 className="text-2xl font-bold gap-3 max-w-8xl m-auto my-5">
-       Personal Information
-      </h1>
-        <Card className="px-3">
-          <CardHeader
-            title={`${content[selectedTab - 1].label} (${selectedTab}/1)`}
-            className="font-bold"
-          />
-          <CardContent>
-            <div>{selectedTabContent}</div>
-          </CardContent>
-        </Card>
+      <Card className="px-3">
+      <CardHeader
+        title={
+          <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontSize: "16px" }}>
+            Employer Application
+          </Typography>
+        }
+        subheader={
+          <Typography variant="subtitle2" color="textSecondary" sx={{ fontSize: "12px" }}>
+            {content[selectedTab - 1].stepLabel}
+          </Typography>
+        }
+        className="font-bold"
+      />
+      <CardContent>
+        <div>{selectedTabContent}</div>
+      </CardContent>
+      </Card>
+
         <div style={{ marginTop: "1rem", textAlign: "right" }}>
           <Button
             variant="contained"
