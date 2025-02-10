@@ -437,10 +437,10 @@ const religions = [
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Please fill in the application form.
-      </Typography>
       <form onSubmit={handleSubmit}>
+           <Typography variant="h6" fontWeight="bold">
+        Personal Information
+       </Typography>
         <Grid container spacing={2}>
           {/* Personal Information - 3 columns */}
           <Grid item xs={12} md={4}>
