@@ -516,7 +516,7 @@ const PersonalInfo = () => {
                         <TextField
                           fullWidth
                           name="idnumber"
-                          value={formData.institutionposition}
+                          value={formData.idnumber}
                           onChange={handleChange}
                           required
                         />
