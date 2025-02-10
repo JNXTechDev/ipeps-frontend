@@ -262,6 +262,7 @@ const PersonalInfo = () => {
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={12} md={4}>
             <Typography>
               Date of Birth
@@ -276,6 +277,7 @@ const PersonalInfo = () => {
               required
             />
           </Grid>
+
           <Grid item xs={12} md={4}>
             <Typography>
               Place of Birth
@@ -290,7 +292,7 @@ const PersonalInfo = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography>
               Landline Number
             </Typography>
             <TextField
@@ -300,61 +302,62 @@ const PersonalInfo = () => {
               onChange={handleChange}
             />
           </Grid>
+
           <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom>
-              Cellphone Number
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Select
-                  fullWidth
-                  name="cellphoneCountryCode"
-                  value={formData.cellphoneCountryCode}
-                  onChange={handleChange}
-                  required
-                >
-                  {countryCodes.map((item) => (
-                    <MenuItem key={item.code} value={item.code}>
-                      {item.code} ({item.country})
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  fullWidth
-                  name="cellphoneno"
-                  value={formData.cellphoneno}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter mobile number"
-                />
-              </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Typography variant="subtitle1" gutterBottom>
-                            Country
-                          </Typography>
-                          <Select
-                            fullWidth
-                            label="Country"
-                            name="permanentCountry"
-                            value={formData.permanentCountry}
-                            onChange={(e) => {
-                              handleChange(e);
-                              setAddressType(e.target.value === 'Philippines' ? 'local' : 'international');
-                            }}
-                            required
-                            >
-                            {countries.map((country, index) => (
-                              <MenuItem key={index} value={country}>
-                                {country}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </Grid>
+          <Typography>Cellphone Number</Typography>
+          <Grid container spacing={2}> {/* Add a container for the row */}
+            <Grid item xs={4}> {/* Country code takes 4 columns */}
+              <Select
+                fullWidth
+                value={formData.cellphoneCountryCode}
+                onChange={(e) =>
+                  setFormData({ ...formData, cellphoneCountryCode: e.target.value })
+                }
+              >
+                {countryCodes.map((item) => (
+                  <MenuItem key={item.code} value={item.code}>
+                    {item.code} ({item.country})
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={8}> {/* Phone number input takes 8 columns */}
+              <TextField
+                fullWidth
+                name="cellphoneno"
+                value={formData.cellphoneno}
+                onChange={handleChange}
+                placeholder="Enter phone number"
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
+          <Grid item xs={12} md={4}>
+          <Typography>
+            Country
+          </Typography>
+          <Select
+              fullWidth
+              label="Country"
+              name="permanentCountry"
+              value={formData.permanentCountry}
+              onChange={(e) => {
+              handleChange(e);
+              setAddressType(e.target.value === 'Philippines' ? 'local' : 'international');
+             }}
+             required
+          >
+             {countries.map((country, index) => (
+           <MenuItem key={index} value={country}>
+             {country}
+           </MenuItem>
+           ))}
+          </Select>
+          </Grid>
 
             <Grid item xs={12} md={4}>
-                      <Typography variant="subtitle1" gutterBottom>Region</Typography>
+                      <Typography>Region</Typography>
                       <Select
                         fullWidth
                         name={fieldNames.region}
@@ -369,8 +372,9 @@ const PersonalInfo = () => {
                         ))}
                       </Select>
                     </Grid>
+
                     <Grid item xs={12} md={4}>
-                      <Typography variant="subtitle1" gutterBottom>Province</Typography>
+                      <Typography>Province</Typography>
                       <Select
                         fullWidth
                         name={fieldNames.provinceOrCity}
@@ -385,8 +389,9 @@ const PersonalInfo = () => {
                         ))}
                       </Select>
                     </Grid>
+
                     <Grid item xs={12} md={4}>
-                      <Typography variant="subtitle1" gutterBottom>Municipality</Typography>
+                      <Typography>Municipality</Typography>
                       <Select
                         fullWidth
                         name={fieldNames.municipality}
@@ -401,8 +406,9 @@ const PersonalInfo = () => {
                         ))}
                       </Select>
                     </Grid>
+
                     <Grid item xs={12} md={4}>
-                      <Typography variant="subtitle1" gutterBottom>Barangay</Typography>
+                      <Typography>Barangay</Typography>
                       <Select
                         fullWidth
                         name={fieldNames.barangay}
@@ -419,7 +425,7 @@ const PersonalInfo = () => {
                     </Grid>
 
             <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography>
               Zip Code/Postal Code
             </Typography>
             <TextField
@@ -430,8 +436,8 @@ const PersonalInfo = () => {
               required
             />
           </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="subtitle1" gutterBottom>
+            <Grid item xs={12} md={4} mb={4}>
+              <Typography>
                 House No./Street Village
               </Typography>
               <TextField
@@ -442,13 +448,12 @@ const PersonalInfo = () => {
                 required
               />
               </Grid>
+              </Grid>
 
-            <Grid item xs={12} md={4}>
             <Typography variant="h6" fontWeight="bold">
               Company / Agency Affiliation
             </Typography>
-            </Grid>
-
+        <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
             <Typography>
               Emplolyer's Name
@@ -486,7 +491,7 @@ const PersonalInfo = () => {
               required
             />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} mb={4}>
             <Typography>
              Employer's Position/Designation
             </Typography>
@@ -499,14 +504,26 @@ const PersonalInfo = () => {
             />
             </Grid>              
 
-            </Grid>
-          </Grid>
-          </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h6" fontWeight="bold">
+            <Typography variant="h6" fontWeight="bold" mb={2}>
               Please Upload one valid company ID (required)
             </Typography>
+                       <Grid item xs={12} md={4} mb = {4}>
+            <Typography fontWeight="bold">
+                          ID Number            
+                          </Typography>
+                        <TextField
+                          fullWidth
+                          name="idnumber"
+                          value={formData.institutionposition}
+                          onChange={handleChange}
+                          required
+                        />
+                        </Grid> 
+        </Grid>
+        </Grid>
+
             <FormControl fullWidth>
               <InputLabel>Choose JPEG file</InputLabel>
               <input
@@ -530,12 +547,12 @@ const PersonalInfo = () => {
             <Button variant="contained" color="primary" style={{ marginTop: '8px' }}>
               Download File
             </Button>
-          </Grid>
         <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
           Submit
         </Button>
       </form>
     </div>
+    
   );
 };
 
