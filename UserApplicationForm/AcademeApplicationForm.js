@@ -22,13 +22,7 @@ import { styled } from "@mui/material/styles";
 
 // Custom Components
 import PersonalInfo from "./Pages/academe/PersonalInfo";
-import JobPreference from "./Pages/academe/JobPreference";
-import LanguageDialectProficiency from "./Pages/academe/LanguageDialectProficiency";
-import EducationalBackground from "./Pages/academe/EducationalBackground";
-import OtherTraining from "./Pages/academe/OtherTraining";
-import EligibilityProfessionalLicense from "./Pages/academe/EligibilityProfessionalLicense";
-import WorkExperience from "./Pages/academe/WorkExperience";
-import OtherSkills from "./Pages/academe/OtherSkills";
+
 //import SideBar from './SideBar';
 
 const AcademeApplicationForm = (props) => {
@@ -103,17 +97,9 @@ const AcademeApplicationForm = (props) => {
     })
   );
 
-  const content = [
-    { label: "Academe Information", step: "Step 1" },
-    { label: "Job Preference", step: "Step 2" },
-    { label: "Language Proficiency", step: "Step 3" },
-    { label: "Educational Background", step: "Step 4" },
-    { label: "Other Training", step: "Step 5" },
-    { label: "Professional License", step: "Step 6" },
-    { label: "Work Experience", step: "Step 7" },
-    { label: "Other Skills", step: "Step 8" },
-    { label: "Review", step: "Step 9" },
-  ];
+const content = [
+  { label: "Information Details", stepLabel: "Instructions: Please fill in the application form.", step: "Step 1" },
+];
 
   const onRefresh = () => {
     props.onGetAuthStorage();
@@ -128,83 +114,6 @@ const AcademeApplicationForm = (props) => {
       selectedTabContent = (
         <PersonalInfo
           pageData={pageData?.personal_info_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 2:
-      selectedTabContent = (
-        <JobPreference
-          pageData={pageData?.job_preference_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 3:
-      selectedTabContent = (
-        <LanguageDialectProficiency
-          pageData={pageData?.dialect_lang_prof_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 4:
-      selectedTabContent = (
-        <EducationalBackground
-          pageData={pageData?.edu_background_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 5:
-      selectedTabContent = (
-        <OtherTraining
-          pageData={pageData?.other_training_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 6:
-      selectedTabContent = (
-        <EligibilityProfessionalLicense
-          pageData={pageData?.eligibility_prof_license_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 7:
-      selectedTabContent = (
-        <WorkExperience
-          pageData={pageData?.work_experience_page}
-          onRefresh={onRefresh}
-          selectedTab={selectedTab}
-          onClickNextPage={() => onClickNextPage()}
-          onClickPrevPage={() => onClickPrevPage()}
-        />
-      );
-      break;
-    case 8:
-      selectedTabContent = (
-        <OtherSkills
-          pageData={pageData?.work_experience_page}
           onRefresh={onRefresh}
           selectedTab={selectedTab}
           onClickNextPage={() => onClickNextPage()}
@@ -270,7 +179,7 @@ const AcademeApplicationForm = (props) => {
   };
 
   const onClickNextPage = () => {
-    if (selectedTab < 9) {
+    if (selectedTab < 1) {
       setSelectedTab(selectedTab + 1);
       onRefresh();
     }
@@ -300,20 +209,30 @@ const AcademeApplicationForm = (props) => {
   }
 
   return (
-    <div className="flex justify-center gap-3 max-w-5xl m-auto my-5">
+    <div className="flex justify-center gap-3 max-w-8xl m-auto my-5">
       {/* Stepper container */}
 
       {/* Main content area */}
       <Container>
-        <Card className="px-3">
-          <CardHeader
-            title={`${content[selectedTab - 1].label} (${selectedTab}/9)`}
-            className="font-bold"
-          />
-          <CardContent>
-            <div>{selectedTabContent}</div>
-          </CardContent>
-        </Card>
+      <Card className="px-3">
+      <CardHeader
+        title={
+          <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontSize: "16px" }}>
+            Academe Application
+          </Typography>
+        }
+        subheader={
+          <Typography variant="subtitle2" color="textSecondary" sx={{ fontSize: "12px" }}>
+            {content[selectedTab - 1].stepLabel}
+          </Typography>
+        }
+        className="font-bold"
+      />
+      <CardContent>
+        <div>{selectedTabContent}</div>
+      </CardContent>
+      </Card>
+
         <div style={{ marginTop: "1rem", textAlign: "right" }}>
           <Button
             variant="contained"
