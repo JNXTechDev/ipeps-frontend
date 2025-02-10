@@ -443,10 +443,64 @@ const PersonalInfo = () => {
               />
               </Grid>
 
+            <Grid item xs={12} md={4}>
+            <Typography variant="h6" fontWeight="bold">
+              Company / Agency Affiliation
+            </Typography>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+            <Typography>
+              Emplolyer's Name
+            </Typography>
+            <TextField
+              fullWidth
+              name="employername"
+              value={formData.employername}
+              onChange={handleChange}
+              required
+            />
+            </Grid>
               
+            <Grid item xs={12} md={4}>
+            <Typography>
+              Emplolyer's Address
+            </Typography>
+            <TextField
+              fullWidth
+              name="employeraddress"
+              value={formData.employeraddres}
+              onChange={handleChange}
+              required
+            />
+            </Grid>
+            <Grid item xs={12} md={4}>
+            <Typography>
+             Employer's Contact Number
+            </Typography>
+            <TextField
+              fullWidth
+              name="employercontactno"
+              value={formData.employeraddres}
+              onChange={handleChange}
+              required
+            />
+            </Grid>
+            <Grid item xs={12} md={4}>
+            <Typography>
+             Employer's Position/Designation
+            </Typography>
+            <TextField
+              fullWidth
+              name="employerposition"
+              value={formData.employerposition}
+              onChange={handleChange}
+              required
+            />
+            </Grid>              
+
             </Grid>
           </Grid>
-          
           </Grid>
 
           <Grid item xs={12}>
