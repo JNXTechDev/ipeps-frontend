@@ -194,6 +194,9 @@ const PersonalInfo = () => {
     <div>
       <h2>Please fill in the application form.</h2>
       <form onSubmit={handleSubmit}>
+           <Typography variant="h6" fontWeight="bold">
+        Personal Information
+       </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <Typography>
