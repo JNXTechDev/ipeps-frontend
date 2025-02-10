@@ -208,11 +208,14 @@ const EmployerApplicationForm = (props) => {
   }
 
   return (
+    
     <div className="flex justify-center gap-3 max-w-8xl m-auto my-5">
       {/* Stepper container */}
-
       {/* Main content area */}
       <Container>
+      <h1 className="text-2xl font-bold gap-3 max-w-8xl m-auto my-5">
+       Personal Information
+      </h1>
         <Card className="px-3">
           <CardHeader
             title={`${content[selectedTab - 1].label} (${selectedTab}/1)`}
