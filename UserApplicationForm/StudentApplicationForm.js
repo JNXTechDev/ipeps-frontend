@@ -123,7 +123,7 @@ const StudentApplicationForm = (props) => {
   );
 
   const content = [
-    { label: "Student Information", step: "Step 1" },
+    { label: "Information Details", stepLabel: "Instructions: Please fill in the application form.", step: "Step 1" },
     { label: "Job Preference", step: "Step 2" },
     { label: "Language Proficiency", step: "Step 3" },
     { label: "Educational Background", step: "Step 4" },
@@ -304,15 +304,26 @@ const StudentApplicationForm = (props) => {
 
       {/* Main content area */}
       <Container>
-        <Card className="px-10">
-          <CardHeader
-            title={`${content[selectedTab - 1].label} (${selectedTab}/9)`}
-            className="font-bold"
-          />
-          <CardContent>
-            <div>{selectedTabContent}</div>
-          </CardContent>
-        </Card>
+      <Card className="px-3">
+      <CardHeader
+        title={
+          <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontSize: "16px" }}>
+            Student Application
+          </Typography>
+        }
+        subheader={
+          <Typography variant="subtitle2" color="textSecondary" sx={{ fontSize: "12px" }}>
+            {content[selectedTab - 1].stepLabel}
+          </Typography>
+        }
+        className="font-bold"
+      />
+      <CardContent>
+        <div>{selectedTabContent}</div>
+      </CardContent>
+      </Card>
+
+
         <div style={{ marginTop: "1rem", textAlign: "right" }}>
           <Button
             variant="contained"
