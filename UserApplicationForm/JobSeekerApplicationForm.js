@@ -300,7 +300,7 @@ const JobSeekerApplicationForm = (props) => {
   }
 
   return (
-    <div className="flex justify-center gap-3 max-w-5xl m-auto my-5">
+    <div className="flex justify-center gap-3 max-w-8xl m-auto my-5">
       {/* Stepper container */}
 
       {/* Main content area */}
