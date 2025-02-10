@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -24,20 +24,67 @@ const PersonalInfo = () => {
     suffix: '',
     sex: '',
     dateofbirth: '',
-    age: '',
-    email: '',
     placeofbirth: '',
     religion: '',
     designation:'',
     civilstatus: '',
     landlineno: '',
     cellphoneno: '',
-    cellphoneCountryCode: '+63',
-    presentAddress: '',
-    companyAddress: '',
-    companyId: '',
+    tin: '',
+    sssandgsisno: '',
+    pagibigno: '',
+    philhealthno: '',
+    cellphoneCountryCode: '+63', // Add default country code
   });
 
+
+
+    // Add new states for storing JSON data
+    const [regions, setRegions] = useState([]);
+    const [provinces, setProvinces] = useState([]);
+    const [municipalities, setMunicipalities] = useState([]);
+    const [barangays, setBarangays] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+  const [addressType, setAddressType] = useState('local'); // 'local' or 'international'
+
+  
+  // Filter functions for dependent dropdowns
+  const getProvincesByRegion = (regionCode) => {
+    return provinces.filter(province => province.regCode === regionCode);
+  };
+
+  const getMunicipalitiesByProvince = (provinceCode) => {
+    return municipalities.filter(municipality => municipality.provCode === provinceCode);
+  };
+
+  const getBarangaysByMunicipality = (municipalityCode) => {
+    return barangays.filter(barangay => barangay.citymunCode === municipalityCode);
+  };
+  useEffect(() => {
+    const loadJsonData = async () => {
+      try {
+        // Import JSON files (using relative path from PersonalInfo.js to json folder)
+        const regionsData = await import('../../json/refregion.json');
+        const provincesData = await import('../../json/refprovince.json');
+        const municipalitiesData = await import('../../json/refcitymun.json');
+        const barangaysData = await import('../../json/refbrgy.json');
+
+        setRegions(regionsData.RECORDS || []);
+        setProvinces(provincesData.RECORDS || []);
+        setMunicipalities(municipalitiesData.RECORDS || []);
+        setBarangays(barangaysData.RECORDS || []);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading JSON data:', error);
+        setError('Failed to load location data');
+        setLoading(false);
+      }
+    };
+
+    loadJsonData();
+  }, []);
+  // Add country codes array
   const countryCodes = [
     { code: '+1', country: 'US/Canada' },
     { code: '+44', country: 'UK' },
@@ -55,6 +102,7 @@ const PersonalInfo = () => {
     { code: '+62', country: 'Indonesia' },
   ];
 
+  // Add religions array
   const religions = [
     "Roman Catholic",
     "Islam",
@@ -80,6 +128,39 @@ const PersonalInfo = () => {
     "Other Religious Beliefs",
     "None/Non-religious"
   ];
+  const fieldNames = {
+    region: `Region`,
+    provinceOrCity: `ProvinceOrCity`,
+    municipality: `Municipality`,
+    barangay: `Barangay`
+  };
+    // Add countries array back since it's not in JSON files
+    const countries = [
+      "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina",
+      "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+      "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana",
+      "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon",
+      "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo",
+      "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica",
+      "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia",
+      "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana",
+      "Greece", "Grenada", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India",
+      "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
+      "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya",
+      "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
+      "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia",
+      "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand",
+      "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau",
+      "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar",
+      "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+      "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles",
+      "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa",
+      "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland",
+      "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga",
+      "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
+      "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu",
+      "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+    ];
 
   const [isSameAsPresentAddress, setIsSameAsPresentAddress] = useState(false);
   const [isCheckedVisual, setIsCheckedVisual] = useState(false);
@@ -149,17 +230,24 @@ const PersonalInfo = () => {
               required
             />
           </Grid>
+
           <Grid item xs={12} md={4}>
-            <Typography>
-              Suffix
-            </Typography>
-            <TextField
-              fullWidth
-              name="suffix"
-              value={formData.suffix}
-              onChange={handleChange}
-            />
+            <FormControl fullWidth>
+              <Typography>Suffix</Typography>
+              <Select
+                name="suffix"
+                value={formData.civilstatus}
+                onChange={handleChange}
+                required
+              >
+                <MenuItem value="Jr">Jr</MenuItem>
+                <MenuItem value="Sr">Sr</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
+
+
+
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
               <Typography>Sex</Typography>
@@ -202,51 +290,6 @@ const PersonalInfo = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Typography>
-              Religion
-            </Typography>
-            <Select
-              fullWidth
-              name="religion"
-              value={formData.religion}
-              onChange={handleChange}
-            >
-              {religions.map((religion, index) => (
-                <MenuItem key={index} value={religion}>{religion}</MenuItem>
-              ))}
-            </Select>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Typography>
-              Designation
-            </Typography>
-            <TextField
-              fullWidth
-              name="designation"
-              value={formData.designation}
-              onChange={handleChange}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <FormControl fullWidth>
-              <Typography>Civil Status</Typography>
-              <Select
-                name="civilstatus"
-                value={formData.civilstatus}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="Single">Single</MenuItem>
-                <MenuItem value="Married">Married</MenuItem>
-                <MenuItem value="Divorced">Divorced</MenuItem>
-                <MenuItem value="Widowed">Widowed</MenuItem>
-              </Select>
-            </FormControl>
-
-          </Grid>
-          <Grid item xs={12} md={4}>
             <Typography variant="subtitle1" gutterBottom>
               Landline Number
             </Typography>
@@ -287,69 +330,123 @@ const PersonalInfo = () => {
                   placeholder="Enter mobile number"
                 />
               </Grid>
+                        <Grid item xs={12} md={4}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            Country
+                          </Typography>
+                          <Select
+                            fullWidth
+                            label="Country"
+                            name="permanentCountry"
+                            value={formData.permanentCountry}
+                            onChange={(e) => {
+                              handleChange(e);
+                              setAddressType(e.target.value === 'Philippines' ? 'local' : 'international');
+                            }}
+                            required
+                            >
+                            {countries.map((country, index) => (
+                              <MenuItem key={index} value={country}>
+                                {country}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </Grid>
+
+            <Grid item xs={12} md={4}>
+                      <Typography variant="subtitle1" gutterBottom>Region</Typography>
+                      <Select
+                        fullWidth
+                        name={fieldNames.region}
+                        value={formData[fieldNames.region] || ''}
+                        onChange={handleChange}
+                        required
+                      >
+                        {regions.map((region) => (
+                          <MenuItem key={region.regCode} value={region.regCode}>
+                            {region.regDesc}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Typography variant="subtitle1" gutterBottom>Province</Typography>
+                      <Select
+                        fullWidth
+                        name={fieldNames.provinceOrCity}
+                        value={formData[fieldNames.provinceOrCity] || ''}
+                        onChange={handleChange}
+                        required
+                      >
+                        {getProvincesByRegion(formData[fieldNames.region]).map((province) => (
+                          <MenuItem key={province.provCode} value={province.provCode}>
+                            {province.provDesc}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Typography variant="subtitle1" gutterBottom>Municipality</Typography>
+                      <Select
+                        fullWidth
+                        name={fieldNames.municipality}
+                        value={formData[fieldNames.municipality] || ''}
+                        onChange={handleChange}
+                        required
+                      >
+                        {getMunicipalitiesByProvince(formData[fieldNames.provinceOrCity]).map((municipality) => (
+                          <MenuItem key={municipality.citymunCode} value={municipality.citymunCode}>
+                            {municipality.citymunDesc}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Typography variant="subtitle1" gutterBottom>Barangay</Typography>
+                      <Select
+                        fullWidth
+                        name={fieldNames.barangay}
+                        value={formData[fieldNames.barangay] || ''}
+                        onChange={handleChange}
+                        required
+                      >
+                        {getBarangaysByMunicipality(formData[fieldNames.municipality]).map((barangay) => (
+                          <MenuItem key={barangay.brgyCode} value={barangay.brgyCode}>
+                            {barangay.brgyDesc}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Grid>
+
+            <Grid item xs={12} md={4}>
+            <Typography variant="subtitle1" gutterBottom>
+              Zip Code/Postal Code
+            </Typography>
+            <TextField
+              fullWidth
+              name="zipcode"
+              value={formData.zipcode}
+              onChange={handleChange}
+              required
+            />
+          </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="subtitle1" gutterBottom>
+                House No./Street Village
+              </Typography>
+              <TextField
+                fullWidth
+                name="streetAddress"
+                value={formData.streetAddress}
+                onChange={handleChange}
+                required
+              />
+              </Grid>
+
+              
             </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Typography>Age</Typography>
-            <TextField
-              fullWidth
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              type="number"
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Typography>Email Address</Typography>
-            <TextField
-              fullWidth
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              type="email"
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography>Present Address</Typography>
-            <TextField
-              fullWidth
-              name="presentAddress"
-              value={formData.presentAddress}
-              onChange={handleChange}
-              multiline
-              rows={2}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography>Company Address</Typography>
-            <TextField
-              fullWidth
-              name="companyAddress"
-              value={formData.companyAddress}
-              onChange={handleChange}
-              multiline
-              rows={2}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Typography>Company ID Number</Typography>
-            <TextField
-              fullWidth
-              name="companyId"
-              value={formData.companyId}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-
+          
           </Grid>
 
           <Grid item xs={12}>
