@@ -198,6 +198,8 @@ const App = () => {
                 element={<Settings />}
               />
 
+          
+
               {/* Catch-all Route */}
               <Route path='*' element={<div>Error 404: Page Not Found</div>} />
             </Routes>
