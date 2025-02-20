@@ -44,7 +44,6 @@ import {
   Edit as EditIcon,
   Save as SaveIcon,
 } from '@mui/icons-material';
-import SideBar from '../../layout/SideBar';
 
 const Settings = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -135,7 +134,7 @@ const Settings = () => {
       icon: <PowerSettingsNew />,
       subitems: [
         { id: 'hibernate', title: 'Hibernate account', icon: <ChevronRight /> },
-        { id: 'close', title: 'Close account', icon: <ChevronRight /> }
+        { id: 'delete', title: 'Delete account', icon: <ChevronRight /> }
       ]
     }
   ];
@@ -464,63 +463,55 @@ const Settings = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <SideBar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <Box component="main" sx={{ flexGrow: 1, ml: isCollapsed ? '80px' : '250px', p: 3 }}>
-        <Typography variant="h4" gutterBottom>Settings</Typography>
-        <Divider sx={{ mb: 3 }} />
-        
-        <Box display="flex" gap={3}>
-          {/* Settings Menu */}
-          <Paper sx={{ flex: 1, p: 2 }}>
-            <List>
-              {settingsMenu.map((item) => (
-                <React.Fragment key={item.id}>
-                  <ListItemButton
-                    onClick={() => handleItemClick(item.id)}
-                    sx={{
-                      mb: 1,
-                      borderRadius: 1,
-                      '&:hover': { backgroundColor: '#f5f5f5' }
-                    }}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.title} />
-                    {expandedItems[item.id] ? <ExpandMore /> : <ChevronRight />}
-                  </ListItemButton>
-                  <Collapse in={expandedItems[item.id]} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {item.subitems.map((subitem) => (
-                        <ListItemButton
-                          key={subitem.id}
-                          sx={{ pl: 4 }}
-                          selected={selectedSetting === `${item.id}-${subitem.id}`}
-                          onClick={() => handleSubItemClick(item.id, subitem.id)}
-                        >
-                          <ListItemText 
-                            primary={subitem.title}
-                            sx={{ 
-                              '& .MuiTypography-root': { 
-                                fontSize: '0.9rem',
-                                color: '#666'
-                              }
-                            }}
-                          />
-                          {subitem.icon}
-                        </ListItemButton>
-                      ))}
-                    </List>
-                  </Collapse>
-                </React.Fragment>
-              ))}
-            </List>
-          </Paper>
-
-          {/* Content Area 
-          <Paper sx={{ flexGrow: 1, p: 3 }}>
-            {/* ...existing content area code... 
-          </Paper>*/}
-        </Box>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h4" gutterBottom>Settings</Typography>
+      <Divider sx={{ mb: 3 }} />
+      
+      <Box display="flex" gap={3}>
+        {/* Settings Menu */}
+        <Paper sx={{ flex: 1, p: 2 }}>
+          <List>
+            {settingsMenu.map((item) => (
+              <React.Fragment key={item.id}>
+                <ListItemButton
+                  onClick={() => handleItemClick(item.id)}
+                  sx={{
+                    mb: 1,
+                    borderRadius: 1,
+                    '&:hover': { backgroundColor: '#f5f5f5' }
+                  }}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.title} />
+                  {expandedItems[item.id] ? <ExpandMore /> : <ChevronRight />}
+                </ListItemButton>
+                <Collapse in={expandedItems[item.id]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.subitems.map((subitem) => (
+                      <ListItemButton
+                        key={subitem.id}
+                        sx={{ pl: 4 }}
+                        selected={selectedSetting === `${item.id}-${subitem.id}`}
+                        onClick={() => handleSubItemClick(item.id, subitem.id)}
+                      >
+                        <ListItemText 
+                          primary={subitem.title}
+                          sx={{ 
+                            '& .MuiTypography-root': { 
+                              fontSize: '0.9rem',
+                              color: '#666'
+                            }
+                          }}
+                        />
+                        {subitem.icon}
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              </React.Fragment>
+            ))}
+          </List>
+        </Paper>
       </Box>
       <ProfileDialog />
     </Box>

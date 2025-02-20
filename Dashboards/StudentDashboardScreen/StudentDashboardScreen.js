@@ -20,7 +20,6 @@ import TrainingApplications from './components/sidebar-menu-items/TrainingApplic
 import ScholarshipSearch from "./components/sidebar-menu-items/ScholarshipSearch/ScholarshipSearch";
 import ScholarshipApplications from './components/sidebar-menu-items/ScholarshipApplications/ScholarshipApplications';
 import SavedScholarships from './components/sidebar-menu-items/ScholarshipSaved/SavedScholarships';
-import Companies from './components/sidebar-menu-items/Companies/Companies';
 
 const StudentDashboardScreen = () => {
     const theme = useTheme();
@@ -59,7 +58,6 @@ const StudentDashboardScreen = () => {
                         <Route path="/scholarship-search" element={<ScholarshipSearch isCollapsed={isCollapsed} />} />
                         <Route path="/scholarship-applications" element={<ScholarshipApplications isCollapsed={isCollapsed} />} />
                         <Route path="/saved-scholarships" element={<SavedScholarships isCollapsed={isCollapsed} />} />
-                        <Route path="/companies" element={<Companies isCollapsed={isCollapsed} />} />
                         <Route path="/settings" element={
                             <Box sx={{ 
                                 position: 'fixed',
