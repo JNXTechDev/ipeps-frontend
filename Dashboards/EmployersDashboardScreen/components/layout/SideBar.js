@@ -143,7 +143,8 @@ const SideBar = ({ isCollapsed, setIsCollapsed }) => {
         trainings: true,
         scholarships: true,
         companies: true,
-        settings: true
+        settings: true,
+        management: true // Add this new state key for management section
     });
 
     const toggleSection = (section) => {
@@ -414,8 +415,8 @@ const SideBar = ({ isCollapsed, setIsCollapsed }) => {
                             <MenuSection 
                                 title="MANAGEMENT" 
                                 isCollapsed={isCollapsed}
-                                isOpen={openSections.jobs}
-                                onToggle={() => toggleSection('manage')}
+                                isOpen={openSections.management} // Change from jobs to management
+                                onToggle={() => toggleSection('management')} // Change from manage to management
                             >
 
              

@@ -406,6 +406,23 @@ const handleSubmit = () => {
           </Button>
         </Grid>
 
+
+        <Grid container spacing={2}>
+
+        <Grid item xs={12} >
+        <InputLabel id="other-qualification">Other Qualification</InputLabel>
+      <TextField
+        fullWidth
+        margin="normal"
+        label=""
+        multiline
+        rows={3}
+        value={jobDescription}
+        onChange={(e) => setJobDescription(e.target.value)}
+      />
+        </Grid>
+        </Grid>
+
         {/*buttons area*/}
 
           <Divider />

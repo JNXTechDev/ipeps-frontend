@@ -147,7 +147,7 @@
 
         
                     }}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom>3
                         Company Approval
                     </Typography>
 
